@@ -1,0 +1,61 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Service to Mint and register new records.",
+        "version": "1.0.0",
+        "title": "Mint API"
+    },
+    "host": "localhost:8006",
+    "basePath": "/v1.0",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/records": {
+            "post": {
+                "description": "Mint a record and submit it to the register. See Validation API for possible validation errors.",
+                "operationId": "addRecord",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Item data to be added to the register",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "local-land-charge": {}
+                            },
+                            "required": ["local-land-charge"],
+                            "additionalProperties": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        }
+    },
+    "security": [{
+        "JWTAuth": []
+    }],
+    "securityDefinitions": {
+        "JWTAuth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorizaton"
+        }
+    }
+}
